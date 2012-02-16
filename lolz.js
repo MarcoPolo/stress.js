@@ -36,4 +36,5 @@ var apiWrapper = require('./models/api').apiWrapper,
 api = new apiWrapper('http://beluga');
 
 
-api.callAPI('danceAPI','monkey',{},jsSHA);
+urlObj = api.callAPI('danceAPI','monkey',{},jsSHA);
+console.log(urlObj);
