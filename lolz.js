@@ -6,34 +6,39 @@ var apiWrapper = require('./models/api').apiWrapper,
     http = require('http'),
     fs = require('fs');
 
+var options = {
+    host: 'www.google.com',
+    port: 80,
+    path: '',
+    method: 'GET'
+};
 
+var upto = process.argv[2];
+var req;
+console.log(upto);
+while (upto > 0) {
+    upto -= 1;
+    req = http.request(options, function(res) {
+        console.log('STATUS: ' + res.statusCode);
+        //console.log('HEADERS: ' + JSON.stringify(res.headers));
 
-    var options = {
-        host: 'www.google.com',
-        port: 80,
-        path: '/upload',
-        method: 'POST'
-    };
+        //res.setEncoding('utf8');
+        //res.on('data', function (chunk) {
+        //    console.log('CHUNK:');
+        //    console.log(chunk);
+        //});
+    }).end();
 
-    var req = http.request(options, function(res) {
-  console.log('STATUS: ' + res.statusCode);
-  console.log('HEADERS: ' + JSON.stringify(res.headers));
-  res.setEncoding('utf8');
-  res.on('data', function (chunk) {
-    console.log('BODY: ' + chunk);
-  });
-});
+    console.log('END');
+}
 
-// write data to request body
+//    var req = http.request(options, function(res) {
+//        console.log('STATUS: ' + res.statusCode);
+//        console.log('HEADERS: ' + JSON.stringify(res.headers));
+//        res.setEncoding('utf8');
+//        res.on('data', function (chunk) {
+//        console.log('BODY: ' + chunk);
+//  });
 
-
-
-
-//req.write('data\n');
-//req.write('data\n');
-//req.end();
-
-api = new apiWrapper('http://beluga');
-
-
-api.callAPI('danceAPI','monkey',{},jsSHA);
+//api = new apiWrapper('http://beluga');
+//api.callAPI('danceAPI','monkey',{},jsSHA);
