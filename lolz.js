@@ -1,7 +1,10 @@
+//
 // We need this to build our post string
-var querystring = require('querystring');
-var http = require('http');
-var fs = require('fs');
+var apiWrapper = require('./models/api').apiWrapper,
+    jsSHA = require('./models/sha').jsSHA,
+    querystring = require('querystring'),
+    http = require('http'),
+    fs = require('fs');
 
 
 
@@ -30,20 +33,7 @@ var fs = require('fs');
 //req.write('data\n');
 //req.end();
 
-var callAPI = function(method, paramObj, callback){
-    
-    var response = null;
+api = new apiWrapper('http://beluga');
 
-    requestObj = {
-        "headers" : {
-            "publicKey": ''
-        },
-        "method" : method,
-        "parameters" : paramObj
-    };
-    
-    var signature = getSignature(requestObj);
-    var requestURL = this.apiPathName + "?signature=" + signature;
 
-    //$.post(requestURL, JSON.stringify(requestObj), cache.saveAndCall(method, paramObj, callback));
-};
+api.callAPI('danceAPI','monkey',{},jsSHA);

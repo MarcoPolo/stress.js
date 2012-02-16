@@ -1,8 +1,8 @@
-function api(apiPathName){
-    this.apiPathName = apiPathName;
+function api(hostTarget){
+    this.hostTarget = hostTarget;
 }
 
-function apiWrapper(apiPathName){
+function apiWrapper(hostTarget){
 
     //constants
     var publicKey = '009DBDD9C9732F59445E831AEE65717A072FA96A2D7082E0425A3C2061EB6013';
@@ -13,6 +13,22 @@ function apiWrapper(apiPathName){
         console.log(signature);
         console.log(testSig);
         return signature==testSig;
+    }
+
+    var callAPI = function(apiName, method, paramObj, jsSHA){
+        requestObj = {
+            "headers" : {
+                "publicKey": publicKey
+            },
+            "method" : method,
+            "parameters" : paramObj
+        };
+
+        var signature = getSignature(requestObj, jsSHA);
+        var requestURL = this.hostTarget +'/'+ apiName + "?signature=" + signature;
+        return {url:requestURL, reqObj :requestObj}
+
+        
     }
 
     var calcHMAC = function(text, key, jsSHA){
@@ -28,7 +44,8 @@ function apiWrapper(apiPathName){
     }
 
     api.prototype.checkSignature = checkSignature;
-    return new api(apiPathName);
+    api.prototype.callAPI = callAPI;
+    return new api(hostTarget);
 
 }
 
