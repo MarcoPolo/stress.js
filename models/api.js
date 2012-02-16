@@ -25,7 +25,7 @@ function apiWrapper(hostTarget){
         };
 
         var signature = getSignature(requestObj, jsSHA);
-        var requestURL = this.hostTarget +'/'+ apiName + "?signature=" + signature;
+        var requestURL = apiName + "?signature=" + signature;
         return {url:requestURL, reqObj :requestObj}
 
         

@@ -8,20 +8,29 @@ var apiWrapper = require('./models/api').apiWrapper,
 
 
 
-    var options = {
-        host: 'www.google.com',
-        port: 80,
-        path: '/upload',
-        method: 'POST'
-    };
+api = new apiWrapper('http://beluga/');
 
-    var req = http.request(options, function(res) {
-  console.log('STATUS: ' + res.statusCode);
-  console.log('HEADERS: ' + JSON.stringify(res.headers));
-  res.setEncoding('utf8');
-  res.on('data', function (chunk) {
-    console.log('BODY: ' + chunk);
-  });
+
+urlObj = api.callAPI('api/artist/activityreport/index.php','getWeeklyStreams',{artistid:'200',startWeek:"1",endWeek:"50",startYear:"2011","endYear":"2011"},jsSHA);
+
+
+
+var options = {
+    host: 'beluga',
+    port: 80,
+    path: urlObj.url,
+    headers: urlObj.reqObj,
+    method: 'POST'
+};
+
+var req = http.request(options, function(res) {
+    console.log('STATUS: ' + res.statusCode);
+    console.log('HEADERS: ' + JSON.stringify(res.headers));
+    res.setEncoding('utf8');
+  
+    res.on('data', function (chunk) {
+        console.log('BODY: ' + chunk);
+    });
 });
 
 // write data to request body
@@ -31,7 +40,8 @@ var apiWrapper = require('./models/api').apiWrapper,
 
 //req.write('data\n');
 //req.write('data\n');
-//req.end();
+req.end();
+//
 
 api = new apiWrapper('http://beluga');
 
