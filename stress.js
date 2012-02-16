@@ -344,7 +344,7 @@ Object.size = function(obj) {
             var param = functions[functionName].parameters[p];
             if (param == "artistID") {
               var id = artistIds[Math.floor(Math.random()*(artistIds.length))];
-              parameters += "artistID : " + id + ", ";
+              parameters += "\"artistID\": " + id + ", ";
             }
             else if (param == "startDate") {
               var year = Math.floor(Math.random()*(3)+8);
@@ -355,7 +355,7 @@ Object.size = function(obj) {
               var day = Math.floor(Math.random()*(30)+1);
               if (day < 10) day = "0"+day.toString();
               var date = year + "-" + month + "-" + day;
-              parameters += "startDate : " + date + ", ";
+              parameters += "\"startDate\": " + date + ", ";
             }
             else if (param == "endate") {
               var year = Math.floor(Math.random()*(3)+8);
@@ -366,35 +366,35 @@ Object.size = function(obj) {
               var day = Math.floor(Math.random()*(30)+1);
               if (day < 10) day = "0"+day.toString();
               var date = year + "-" + month + "-" + day;
-              parameters += "endDate : " + date + ", ";
+              parameters += "\"endDate\": " + date + ", ";
             }
             else if (param == "startWeek") {
               var week = Math.floor(Math.random()*(53)+1).toString();
-              parameters += "startWeek : " + week + ", ";
+              parameters += "\"startWeek\": " + week + ", ";
             }
             else if (param == "endWeek") {
               var week = Math.floor(Math.random()*(53)+1).toString();
-              parameters += "endWeek : " + week + ", ";
+              parameters += "\"endWeek\": " + week + ", ";
             }
             else if (param == "startMonth") {
               var month = Math.floor(Math.random()*(12)+1).toString();
-              parameters += "startMonth : " + month + ", ";
+              parameters += "\"startMonth\": " + month + ", ";
             }
             else if (param == "endMonth") {
               var month = Math.floor(Math.random()*(12)+1).toString();
-              parameters += "endMonth : " + month + ", ";
+              parameters += "\"endMonth\": " + month + ", ";
             }
             else if (param == "startYear") {
               var year = Math.floor(Math.random()*(3)+8);
               if (year < 10) year = "0"+year.toString();
               year = "20" + year.toString();
-              parameters += "startYear : " + year + ", ";
+              parameters += "\"startYear\": " + year + ", ";
             }
             else if (param == "endYear") {
               var year = Math.floor(Math.random()*(3)+8);
               if (year < 10) year = "0"+year.toString();
               year = "20" + year.toString();
-              parameters += "endYear : " + year + ", ";
+              parameters += "\"endYear\": " + year + ", ";
             }
           }
         }
