@@ -11,16 +11,23 @@ var apiWrapper = require('./models/api').apiWrapper,
 api = new apiWrapper('http://beluga/');
 
 
-urlObj = api.callAPI('api/artist/activityreport/index.php','getWeeklyStreams',{artistid:'200',startWeek:"1",endWeek:"50",startYear:"2011","endYear":"2011"},jsSHA);
+urlObj = api.callAPI('/test.php','getWeeklyStreams',{artistid:'200',startWeek:"1",endWeek:"50",startYear:"2011","endYear":"2011"},jsSHA);
 
 
+var post_data = querystring.stringify(urlObj.reqObj);
+
+console.log(urlObj);
 
 var options = {
     host: 'beluga',
     port: 80,
     path: urlObj.url,
-    headers: urlObj.reqObj,
-    method: 'POST'
+    //headers: urlObj.reqObj,
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Length': post_data.length
+    }
 };
 
 var req = http.request(options, function(res) {
@@ -39,12 +46,7 @@ var req = http.request(options, function(res) {
 
 
 //req.write('data\n');
-//req.write('data\n');
+req.write(post_data);
 req.end();
 //
 
-api = new apiWrapper('http://beluga');
-
-
-urlObj = api.callAPI('danceAPI','monkey',{},jsSHA);
-console.log(urlObj);
