@@ -1,5 +1,3 @@
-//
-// We need this to build our post string
 var apiWrapper = require('./models/api').apiWrapper,
     jsSHA = require('./models/sha').jsSHA,
     querystring = require('querystring'),
@@ -13,6 +11,7 @@ api = new apiWrapper('http://beluga/');
 
 urlObj = api.callAPI('/test.php','getWeeklyStreams',{artistid:'200',startWeek:"1",endWeek:"50",startYear:"2011","endYear":"2011"},jsSHA);
 
+//urlObj = api.callAPI('api/artist/activityreport/index.php','getWeeklyStreams',{artistid:'200',startWeek:"1",endWeek:"50",startYear:"2011","endYear":"2011"},jsSHA);
 
 var post_data = querystring.stringify(urlObj.reqObj);
 
@@ -30,17 +29,15 @@ var options = {
     }
 };
 
-var req = http.request(options, function(res) {
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    res.setEncoding('utf8');
-  
-    res.on('data', function (chunk) {
-        console.log('BODY: ' + chunk);
-    });
-});
-
-// write data to request body
+var upto = process.argv[2];
+var req;
+while (upto > 0) {
+    upto -= 1;
+    req = http.request(options, function(res) {
+        console.log('STATUS: ' + res.statusCode);
+    }).end();
+    console.log('END');
+}
 
 
 
